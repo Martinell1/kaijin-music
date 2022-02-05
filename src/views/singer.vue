@@ -1,9 +1,8 @@
 <template>
-  <Tab />
+  <h1>Singer</h1>
 </template>
 
 <script setup>
-import Tab from './components/tab/tab.vue'
 </script>
 <style lang='scss' scoped>
 </style>
