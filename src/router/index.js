@@ -2,6 +2,10 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/recommend'
+  },
+  {
     path: '/recommend',
     name: 'Recommend',
     component: () => import(/* webpackChunkName: "about" */ '../views/recommend.vue')

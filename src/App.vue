@@ -1,5 +1,6 @@
 <template>
   <Tab />
+  <router-view />
 </template>
 
 <script setup>
