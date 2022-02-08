@@ -12,7 +12,7 @@ import { ref } from 'vue'
 defineProps({
   title: {
     type: String,
-    default: ''
+    default: '正在加载数据'
   }
 })
 

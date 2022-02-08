@@ -1,5 +1,5 @@
 <template>
-  <div class="recommend" v-loading:[loadingText]="loading">
+  <div class="recommend" v-loading="loading">
     <Scroll class="recommend__content">
       <div>
         <div class="slider__wrapper">
@@ -55,9 +55,8 @@ const { playLists, getPlayListsData } = usePlayListsEffect()
 getPlayListsData()
 
 const useLoadingEffect = () => {
-  const loadingText = '正在加载'
   const loading = computed(() => {
-    return !playLists.value && !sliders.value
+    return !playLists.value.length && !sliders.value.length
   })
 
   return { loadingText, loading }

@@ -24,7 +24,7 @@ export default function useSlider (wrapperRef) {
   })
 
   onUnmounted(() => {
-    slider.value.destroyed()
+    slider.value.destroy()
   })
 
   return { slider, currentPageIndex }
