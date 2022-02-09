@@ -13,21 +13,21 @@ import SingerFilter from '../components/singers/singer-filter.vue'
 const useSingersEffect = () => {
   const singers = ref([])
 
+  let page = 0
   const params = reactive({
-    page: 0,
     type: -1,
     area: -1
   })
 
-  const getSingersData = async (page, type, area) => {
-    const { data: result } = await getSingers(page, type, area)
+  const getSingersData = async () => {
+    const { data: result } = await getSingers(page++, params.type, params.area)
     singers.value = [...singers.value, ...result.artists]
   }
 
   const initSingers = () => {
     params.page = 0
     singers.value = []
-    getSingersData(params.page, params.type, params.area)
+    getSingersData()
   }
 
   const changeParams = (key, value) => {

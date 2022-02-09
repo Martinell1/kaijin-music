@@ -8,13 +8,14 @@
 import { ref } from 'vue'
 import useScroll from './use-scroll'
 const props = defineProps({
-  click: {
+  pullUp: {
     type: Boolean,
-    default: true
+    default: false
   }
 })
 const rootRef = ref(null)
-useScroll(rootRef, props)
+useScroll(rootRef, props.pullUp)
+
 </script>
 <style lang='scss' scoped>
 </style>

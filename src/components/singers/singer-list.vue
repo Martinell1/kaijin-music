@@ -1,5 +1,5 @@
 <template>
-  <Scroll class="singer__list">
+  <Scroll :pullUp="true" class="singer__list">
     <ul>
       <li v-for="singer in singers" :key="singer.id" class="singer__item">
         <img class="singer__cover" width="50" height="50" v-lazy="singer.picUrl" />
