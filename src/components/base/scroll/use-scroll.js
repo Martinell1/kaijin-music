@@ -4,22 +4,28 @@ import Pullup from '@better-scroll/pull-up'
 import { ref, onMounted, onUnmounted, inject } from 'vue'
 BScroll.use(ObserveDOM)
 BScroll.use(Pullup)
-export default function usePull (wrapperRef, options) {
+export default function usePull (wrapperRef, options, emit) {
   const scroll = ref(null)
-  if (options) {
+
+  if (options.pullUpLoad) {
     var getSingersData = inject('getSingersData')
   }
   onMounted(() => {
-    scroll.value = new BScroll(wrapperRef.value, {
+    const scrollVal = scroll.value = new BScroll(wrapperRef.value, {
       click: true,
       observeDOM: true,
-      pullUpLoad: true
+      ...options
     })
+    if (options.probeType > 0) {
+      scrollVal.on('scroll', (pos) => {
+        emit('scroll', pos)
+      })
+    }
 
-    if (options) {
-      scroll.value.on('pullingUp', async () => {
+    if (options.pullUpLoad) {
+      scrollVal.on('pullingUp', async () => {
         await getSingersData()
-        scroll.value.finishPullUp()
+        scrollVal.finishPullUp()
       })
     }
   })

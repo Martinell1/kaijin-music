@@ -1,7 +1,12 @@
 <template>
-  <div class="singers">
+  <div class="singers" v-loading="!singers.length">
     <SingerFilter />
     <SingerList :singers="singers"></SingerList>
+    <router-view v-slot="{ Component }">
+      <transition appear name="slide">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
   </div>
 </template>
 

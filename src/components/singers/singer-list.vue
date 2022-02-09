@@ -1,9 +1,11 @@
 <template>
-  <Scroll :pullUp="true" class="singer__list">
+  <Scroll :pullUpLoad="true" class="singer__list">
     <ul>
-      <li v-for="singer in singers" :key="singer.id" class="singer__item">
-        <img class="singer__cover" width="50" height="50" v-lazy="singer.picUrl" />
-        <span class="singer__title">{{ singer.name }}</span>
+      <li v-for="singer in singers" :key="singer.id">
+        <router-link :to="{ name: 'SingerDetail', params: { id: singer.id } }" class="singer__item">
+          <img class="singer__cover" width="50" height="50" v-lazy="singer.picUrl" />
+          <span class="singer__title">{{ singer.name }}</span>
+        </router-link>
       </li>
     </ul>
   </Scroll>
@@ -35,6 +37,7 @@ defineProps({
     margin: 0 20px 20px 20px;
     display: flex;
     align-items: center;
+    color: $color-text;
   }
 
   &__cover {

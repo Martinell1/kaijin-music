@@ -13,8 +13,18 @@ const getSingers = async (page = 0, type = 1, area = -1, initial = -1) => {
   return await axios.get('/artist/list?type=' + type + '&area=' + area + '&offset=' + page * 30 + '&initial=' + initial)
 }
 
+const getSingerDetail = async (id) => {
+  return await axios.get('/artist/detail?id=' + id)
+}
+
+const getSingerSongs = async (id) => {
+  return await axios.get('/artist/songs?id=' + id)
+}
+
 export {
   getBanners,
   getPlayLists,
-  getSingers
+  getSingers,
+  getSingerDetail,
+  getSingerSongs
 }

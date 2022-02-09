@@ -9,3 +9,11 @@ body,html{
 .g-relative{
   position: relative;
 }
+
+.slide-enter-active,.slide-leave-active{
+  transition: all .3s;
+}
+
+.slide-enter-from,.slide-leave-to{
+  transform : translate3d(0,100%,0)
+}
