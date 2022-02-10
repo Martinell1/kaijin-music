@@ -21,10 +21,23 @@ const getSingerSongs = async (id) => {
   return await axios.get('/artist/songs?id=' + id)
 }
 
+const getMusicUrl = async (id) => {
+  return await axios.get('/song/url?id=' + id)
+}
+
+const checkMusicAble = async (id) => {
+  return axios.get('/check/music?id=' + id)
+    .catch((err) => {
+      return err.response
+    })
+}
+
 export {
   getBanners,
   getPlayLists,
   getSingers,
   getSingerDetail,
-  getSingerSongs
+  getSingerSongs,
+  getMusicUrl,
+  checkMusicAble
 }

@@ -136,19 +136,25 @@ const backHandle = () => {
   router.go(-1)
 }
 
-const store = useStore()
-const selectItem = (index) => {
-  store.dispatch('selectPlay', {
-    list: props.songs,
-    index
-  })
+const usePlayEffect = () => {
+  const store = useStore()
+  const selectItem = (song, index) => {
+    store.dispatch('selectPlay', {
+      list: props.songs,
+      index
+    })
+  }
+
+  const randomPlay = () => {
+    store.dispatch('randomPlay', {
+      list: props.songs
+    })
+  }
+
+  return { selectItem, randomPlay }
 }
 
-const randomPlay = () => {
-  store.dispatch('randomPlay', {
-    list: props.songs
-  })
-}
+const { selectItem, randomPlay } = usePlayEffect()
 
 </script>
 <style lang='scss' scoped>

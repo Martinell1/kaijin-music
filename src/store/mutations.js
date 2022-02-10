@@ -4,11 +4,11 @@ const mutations = {
   },
 
   setSequenceList (state, list) {
-    state.sequence = list
+    state.sequenceList = list
   },
 
   setPlaylist (state, list) {
-    state.playing = list
+    state.playlist = list
   },
 
   setPlayMode (state, mode) {
@@ -20,7 +20,7 @@ const mutations = {
   },
 
   setFullScreen (state, fullScreen) {
-    state.setFullScreen = fullScreen
+    state.fullScreen = fullScreen
   }
 }
 

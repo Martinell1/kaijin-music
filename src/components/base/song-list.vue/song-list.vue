@@ -28,8 +28,14 @@ defineProps({
   }
 })
 const emit = defineEmits(['select'])
-const selectItem = (song, index) => {
+const selectItem = async (song, index) => {
   emit('select', song, index)
+  // const { data: result } = await checkMusicAble(song.id)
+  // if (result.success) {
+  //   emit('select', song, index)
+  // } else {
+  //   alert(result.message)
+  // }
 }
 </script>
 <style lang='scss' scoped>

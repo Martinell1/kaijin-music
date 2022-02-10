@@ -13,6 +13,6 @@ function getRandomIndex (max) {
 
 function swap (arr, i, j) {
   const t = arr[i]
-  arr[i] = t
+  arr[i] = arr[j]
   arr[j] = t
 }
