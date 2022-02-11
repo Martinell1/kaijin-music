@@ -16,3 +16,18 @@ function swap (arr, i, j) {
   arr[i] = arr[j]
   arr[j] = t
 }
+
+export function formatTime (interval) {
+  interval = interval | 0
+  const minute = ((interval / 60 | 0) + '')
+  const second = (interval % 60 + '')
+  return `${fixed(minute)}:${fixed(second)}`
+}
+
+function fixed (item) {
+  if (item.length === 1) {
+    return '0' + item
+  } else {
+    return item
+  }
+}

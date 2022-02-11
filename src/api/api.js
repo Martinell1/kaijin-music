@@ -32,6 +32,19 @@ const checkMusicAble = async (id) => {
     })
 }
 
+const lyricMap = []
+const getLyric = async (song) => {
+  if (song.lyric) {
+    return Promise.resolve(song.lyric)
+  }
+  const id = song.id
+  const lyric = lyricMap[id]
+  if (lyric) {
+    return Promise.resolve(lyric)
+  }
+  return await axios.get('/lyric?id=' + song.id)
+}
+
 export {
   getBanners,
   getPlayLists,
@@ -39,5 +52,6 @@ export {
   getSingerDetail,
   getSingerSongs,
   getMusicUrl,
-  checkMusicAble
+  checkMusicAble,
+  getLyric
 }
