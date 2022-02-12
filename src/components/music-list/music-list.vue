@@ -60,7 +60,7 @@ const props = defineProps({
   }
 })
 const HEADER_HEIGHT = 40
-const useStyleEffect = () => {
+const useStyle = () => {
   const scrollY = ref(0)
   const bgImageRef = ref(null)
   const bgImageHeight = ref(300)
@@ -125,7 +125,7 @@ const useStyleEffect = () => {
   return { scrollStyle, bgImageStyle, filterStyle, btnPlayStyle, bgImageRef, bgImageHeight, maxTranslateY, onScroll }
 }
 
-const { scrollStyle, bgImageStyle, filterStyle, bgImageRef, btnPlayStyle, bgImageHeight, maxTranslateY, onScroll } = useStyleEffect()
+const { scrollStyle, bgImageStyle, filterStyle, bgImageRef, btnPlayStyle, bgImageHeight, maxTranslateY, onScroll } = useStyle()
 
 onMounted(() => {
   bgImageHeight.value = bgImageRef.value.clientHeight
@@ -183,6 +183,9 @@ const { selectItem, randomPlay } = usePlayEffect()
 
   &__title {
     position: absolute;
+    width: 60%;
+    @include no-wrap;
+    text-align: center;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
   }

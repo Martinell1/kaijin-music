@@ -11,28 +11,36 @@
         <h1 class="player__title">{{ currentSong.name }}</h1>
         <h2 class="player__subtitle" v-if="currentSong.ar">{{ currentSong.ar[0].name }}</h2>
       </div>
-      <div class="player__middle">
-        <div class="player__middle--left">
+      <div
+        class="player__middle"
+        @touchstart.prevent="onMiddleTouchStart"
+        @touchmove="onMiddleTouchMove"
+        @touchend="onMiddleTouchEnd"
+      >
+        <div class="player__middle--left" :style="middleLStyle">
           <div class="player__cd__wrapper">
             <div class="player__cd" ref="cdRef">
               <img class="image" :class="cdState" ref="imgRef" src="../../assets/images/cover.png" />
             </div>
           </div>
+          <div class="player__cd__lyric">{{ playingLyric }}</div>
         </div>
-        <div class="player__middle--right">
-          <Scroll class="player__lyric__scroll">
-            <div class="player__lyric__wrapper">
-              {{ 'currentLineNum' + currentLineNum }}
-              <div v-if="currentLyric">
-                <p
-                  class="player__lyric__text"
-                  :class="{ 'player__lyric__text--current': currentLineNum === index }"
-                  v-for="(line, index) in currentLyric.lines"
-                  :key="line.num"
-                >{{ line.txt }}</p>
-              </div>
+        <Scroll class="player__middle--right" :style="middleRStyle" ref="scrollRef">
+          <div class="player__lyric__wrapper">
+            <div v-if="currentLyric" ref="lyricRef">
+              <p
+                class="player__lyric__text"
+                :class="{ 'player__lyric__text--current': currentLineNum === index }"
+                v-for="(line, index) in currentLyric.lines"
+                :key="line.num"
+              >{{ line.txt }}</p>
             </div>
-          </Scroll>
+          </div>
+        </Scroll>
+
+        <div class="player__dot__wrapper">
+          <span class="player__dot" :class="{ 'player__dot--active': currentShow === 'cd' }"></span>
+          <span class="player__dot" :class="{ 'player__dot--active': currentShow === 'lyric' }"></span>
         </div>
       </div>
       <div class="player__bottom">
@@ -92,32 +100,22 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicUrl } from '../../api/api'
 import useMode from './use-mode'
 import useCd from './use-cd'
 import useLyric from './use-lyric'
 import useFavorite from './use-favorite'
+import usePlay from './use-play'
+import useStyle from './use-style'
 import { formatTime } from '../../assets/js/util'
 import ProgressBar from './progress-bar.vue'
-import { PLAY_MODE } from '@/assets/js/constance'
 import Scroll from '../base/scroll/scroll.vue'
-
 const store = useStore()
+// 歌曲是否准备播放 控制歌词和播放,样式
+const onReady = ref(false)
+
 // 样式
-const useStyleEffect = () => {
-  const fullScreen = computed(() => store.state.fullScreen)
+const { fullScreen, backHandle, iconDisable, currentShow, middleLStyle, middleRStyle, onMiddleTouchStart, onMiddleTouchMove, onMiddleTouchEnd } = useStyle({ onReady })
 
-  const backHandle = () => {
-    store.commit('setFullScreen', false)
-  }
-
-  const iconDisable = computed(() => {
-    return onReady.value ? '' : 'player__oper__icon--disable'
-  })
-
-  return { fullScreen, backHandle, iconDisable }
-}
-const { fullScreen, backHandle, iconDisable } = useStyleEffect()
 // 播放模式
 const { modeIcon, modeChangeHandle } = useMode()
 // 收藏
@@ -146,6 +144,8 @@ const useProgress = () => {
   const onProgressChanging = (progress) => {
     progressChanging = true
     currentTime.value = currentSong.value.dt * progress / 1000
+    playLyric()
+    stopLyric()
   }
 
   const onProgressChanged = (progress) => {
@@ -153,6 +153,7 @@ const useProgress = () => {
     audioRef.value.currentTime = currentTime.value = currentSong.value.dt / 1000 * progress
     if (!playing.value) {
       store.commit('setPlayState', true)
+      playLyric()
     }
   }
 
@@ -160,115 +161,14 @@ const useProgress = () => {
 }
 const { currentTime, progress, updateTime, onProgressChanging, onProgressChanged } = useProgress()
 
+// 歌词
+const { scrollRef, lyricRef, currentLyric, currentLineNum, playingLyric, playLyric, stopLyric } = useLyric({ onReady, currentTime })
+
 // 播放
-const usePlayEffect = () => {
-  const currentSong = computed(() => store.getters.currentSong)
-  const playing = computed(() => store.state.playing)
-  const currentIndex = computed(() => store.state.currentIndex)
-  const playlist = computed(() => store.state.playlist)
-  const playMode = computed(() => store.state.playMode)
-
-  const onReady = ref(false)
-
-  const audioRef = ref(null)
-
-  const getMusicData = async (id) => {
-    const { data: result } = await getMusicUrl(id)
-
-    return result.data[0].url
-  }
-
-  const togglePlayHandle = () => {
-    store.commit('setPlayState', !playing.value)
-  }
-
-  const pauseHandle = () => {
-    store.commit('setPlayState', false)
-  }
-
-  const ready = () => {
-    if (onReady.value) {
-      return
-    }
-    onReady.value = true
-    playLyric()
-  }
-
-  const error = () => {
-    onReady.value = true
-  }
-
-  const end = () => {
-    currentTime.value = 0
-    if (playMode.value === PLAY_MODE.loop) {
-      loop()
-    } else {
-      nextHandle()
-    }
-  }
-
-  const shiftMusic = (ShiftHandle) => {
-    const list = playlist.value
-    if (!onReady.value || !list) {
-    } else if (list.length === 1) {
-      loop()
-    } else {
-      const index = ShiftHandle()
-
-      store.commit('setCurrentIndex', index)
-      if (!playing.value) {
-        store.commit('setPlayState', true)
-      }
-    }
-  }
-
-  const prevHandle = () => {
-    shiftMusic(() => {
-      let index = currentIndex.value - 1
-      if (index === -1) {
-        index = playlist.value.length - 1
-      }
-      return index
-    })
-  }
-
-  const nextHandle = () => {
-    shiftMusic(() => {
-      let index = currentIndex.value + 1
-      if (index === playlist.value.length) {
-        index = 0
-      }
-      return index
-    })
-  }
-
-  const loop = () => {
-    const audioEl = audioRef.value
-    audioEl.currentTime = 0
-    audioEl.play()
-    store.commit('setPlayState', true)
-  }
-
-  return {
-    audioRef,
-    currentSong,
-    playing,
-    onReady,
-    ready,
-    error,
-    end,
-    getMusicData,
-    togglePlayHandle,
-    pauseHandle,
-    prevHandle,
-    nextHandle
-  }
-}
 const {
   audioRef,
   currentSong,
   playing,
-  onReady,
   ready,
   error,
   end,
@@ -277,10 +177,7 @@ const {
   pauseHandle,
   prevHandle,
   nextHandle
-} = usePlayEffect()
-
-// 歌词
-const { currentLyric, currentLineNum, playLyric } = useLyric({ onReady, currentTime })
+} = usePlay({ playLyric, onReady, currentTime })
 
 // 切换新歌
 watch(currentSong, async (newSong) => {
@@ -292,6 +189,7 @@ watch(currentSong, async (newSong) => {
   const url = await getMusicData(newSong.id)
 
   const audioEl = audioRef.value
+  console.log('url', url)
   audioEl.src = url
   audioEl.play()
 })
@@ -301,7 +199,13 @@ watch(playing, (newPlaying) => {
     return
   }
   const audioEl = audioRef.value
-  newPlaying ? audioEl.play() : audioEl.pause()
+  if (newPlaying) {
+    audioEl.play()
+    playLyric()
+  } else {
+    audioEl.pause()
+    stopLyric()
+  }
 })
 
 </script>
@@ -352,6 +256,9 @@ watch(playing, (newPlaying) => {
   &__title {
     font-size: $font-size-large;
     margin-bottom: 10px;
+    width: 60%;
+    @include no-wrap;
+    text-align: center;
   }
 
   &__middle {
@@ -368,7 +275,6 @@ watch(playing, (newPlaying) => {
       width: 100%;
       height: 0;
       padding-top: 80%;
-      display: none;
     }
 
     &--right {
@@ -393,6 +299,13 @@ watch(playing, (newPlaying) => {
       width: 80%;
       box-sizing: border-box;
       height: 100%;
+    }
+
+    &__lyric {
+      text-align: center;
+      margin: 20px 0;
+      height: 20px;
+      color: $color-text-d;
     }
 
     img {
@@ -433,9 +346,23 @@ watch(playing, (newPlaying) => {
         color: $color-text;
       }
     }
+  }
 
-    &__scroll {
-      height: 100%;
+  &__dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 99999px;
+    background-color: $color-theme;
+    margin: 0 5px;
+
+    &__wrapper {
+      text-align: center;
+    }
+
+    &--active {
+      width: 25px;
+      transition: all 0.3s;
     }
   }
 
@@ -443,6 +370,14 @@ watch(playing, (newPlaying) => {
     position: absolute;
     bottom: 52px;
     width: 100%;
+  }
+
+  &__dot {
+    &__wrapper {
+    }
+
+    &--active {
+    }
   }
 
   &__progress {

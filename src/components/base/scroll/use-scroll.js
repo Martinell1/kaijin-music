@@ -4,7 +4,7 @@ import Pullup from '@better-scroll/pull-up'
 import { ref, onMounted, onUnmounted, inject } from 'vue'
 BScroll.use(ObserveDOM)
 BScroll.use(Pullup)
-export default function usePull (wrapperRef, options, emit) {
+export default function useScroll (wrapperRef, options, emit) {
   const scroll = ref(null)
 
   if (options.pullUpLoad) {
@@ -33,4 +33,6 @@ export default function usePull (wrapperRef, options, emit) {
   onUnmounted(() => {
     scroll.value.destroy()
   })
+
+  return { scroll }
 }
