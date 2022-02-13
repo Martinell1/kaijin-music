@@ -95,6 +95,7 @@ export default function usePlay ({ playLyric, onReady, currentTime }) {
     audioRef,
     currentSong,
     playing,
+    playlist,
     onReady,
     ready,
     error,

@@ -71,16 +71,23 @@ const usePull = () => {
     emit('progress-changed', progress)
   }
 
-  return { onTouchStart, onTouchMove, onTouchEnd, onClickHnadle }
+  return { onTouchStart, onTouchMove, onTouchEnd, onClickHnadle, setOffsets }
 }
 const emit = defineEmits(['progress-changing', 'progress-changed'])
 
 const { onTouchStart, onTouchMove, onTouchEnd, onClickHnadle } = usePull()
+
 // 进度
 const rootRef = ref(null)
-watch(() => props.progress, (newProgress) => {
+const setOffsets = (progress) => {
   const barWidth = rootRef.value.clientWidth - progressBtnWidth
-  offset.value = barWidth * newProgress
+  offset.value = barWidth * progress
+}
+watch(() => props.progress, (newProgress) => {
+  setOffsets(newProgress)
+})
+defineExpose({
+  setOffsets
 })
 </script>
 <style lang='scss' scoped>
