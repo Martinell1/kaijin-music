@@ -13,7 +13,8 @@
 
 <script setup>
 
-import Scroll from '@/components/base/scroll/scroll.vue'
+import Scroll from '@/components/wrap-scroll/wrap-scroll'
+// eslint-disable-next-line no-undef
 defineProps({
   singers: {
     type: Array,

@@ -15,7 +15,7 @@ export default function useAnimation () {
 
     const animation = {
       0: {
-        transform: `translate3d(${x},${y},0) scale(${scale})`
+        transform: `translate3d(${x}px,${y}px,0) scale(${scale})`
       },
       100: {
         transform: 'translate3d(0,0,0) scale(1)'
@@ -49,11 +49,12 @@ export default function useAnimation () {
     const cdWrapperEl = cdWrapperRef.value
 
     cdWrapperEl.style.transition = 'all .6s cubic-bezier(0.45,0,0.55,1)'
-    cdWrapperEl.style.transform = `translate3d(${x},${y},0) scale(${scale})`
-    cdWrapperEl.addEventListener('transitioned', next)
+    cdWrapperEl.style.transform = `translate3d(${x}px,${y}px,0) scale(${scale})`
+
+    cdWrapperEl.addEventListener('transitionend', next)
 
     function next () {
-      cdWrapperEl.removeEventListener('transitioned', next)
+      cdWrapperEl.removeEventListener('transitionend', next)
       done()
     }
   }

@@ -214,6 +214,7 @@ watch(currentSong, async (newSong) => {
   console.log('url', url)
   audioEl.src = url
   audioEl.play()
+  store.commit('setPlayState', true)
 })
 // 切换播放模式
 watch(playing, (newPlaying) => {

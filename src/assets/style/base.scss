@@ -10,12 +10,24 @@ body,html{
   position: relative;
 }
 
-.slide-enter-active,.slide-leave-active{
+.slide-enter-active,
+.slide-leave-active{
   transition: all .3s;
 }
 
-.slide-enter-from,.slide-leave-to{
+.slide-enter-from,
+.slide-leave-to{
   transform : translate3d(0,100%,0)
+}
+
+.list-enter-active,
+.list-leave-active{
+  transition:  all .3s;
+}
+
+.list-enter-from,
+.list-leave-to{
+  height: 0 !important;
 }
 
 @keyframes rotate{

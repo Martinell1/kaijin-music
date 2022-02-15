@@ -23,22 +23,27 @@
       <div class="player__controller">
         <ProgressCircle :radius="32" :progress="progress">
           <i
-            class="iconfont player__controller__icon"
+            class="iconfont player__controller__icon--svg"
             :class="{ 'icon-play': !playing, 'icon-pause': playing }"
             @click.stop="togglePlayHandle"
           ></i>
         </ProgressCircle>
+        <i class="iconfont player__controller__icon icon-playlist" @click.stop="playlistHandle"></i>
       </div>
+      <Playlist ref="playlistRef"></Playlist>
     </div>
   </transition>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import useCd from './use-cd'
 import ProgressCircle from './progress-circle.vue'
 import useMiniSlider from './use-mini-slider'
+import Playlist from './playlist.vue'
+
+// eslint-disable-next-line no-undef
 defineProps({
   progress: {
     type: Number,
@@ -61,6 +66,11 @@ const { sliderRef } = useMiniSlider()
 
 const nimiPlayerHandle = () => {
   store.commit('setFullScreen', true)
+}
+
+const playlistRef = ref(null)
+const playlistHandle = () => {
+  playlistRef.value.show()
 }
 </script>
 <style lang='scss' scoped>
@@ -132,15 +142,22 @@ const nimiPlayerHandle = () => {
   }
 
   &__controller {
+    display: flex;
+    color: $color-theme;
     position: absolute;
-    right: 20px;
+    right: 10px;
 
     &__icon {
       font-size: 32px;
-      position: absolute;
-      left: 0;
-      transform: scale(0.8);
-      color: $color-theme;
+      transform: scale(0.9);
+      margin-left: 5px;
+
+      &--svg {
+        position: absolute;
+        left: 0;
+        font-size: 32px;
+        transform: scale(0.8);
+      }
     }
   }
 }

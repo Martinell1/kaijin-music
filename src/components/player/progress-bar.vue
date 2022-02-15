@@ -17,6 +17,7 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue'
+// eslint-disable-next-line no-undef
 const props = defineProps({
   progress: {
     type: Number,
@@ -57,7 +58,7 @@ const usePull = () => {
     emit('progress-changing', progress)
   }
 
-  const onTouchEnd = (e) => {
+  const onTouchEnd = () => {
     const barWidth = rootRef.value.clientWidth - progressBtnWidth
     const progress = progressRef.value.clientWidth / barWidth
     emit('progress-changed', progress)
@@ -73,6 +74,7 @@ const usePull = () => {
 
   return { onTouchStart, onTouchMove, onTouchEnd, onClickHnadle, setOffsets }
 }
+// eslint-disable-next-line no-undef
 const emit = defineEmits(['progress-changing', 'progress-changed'])
 
 const { onTouchStart, onTouchMove, onTouchEnd, onClickHnadle } = usePull()
@@ -86,6 +88,7 @@ const setOffsets = (progress) => {
 watch(() => props.progress, (newProgress) => {
   setOffsets(newProgress)
 })
+// eslint-disable-next-line no-undef
 defineExpose({
   setOffsets
 })

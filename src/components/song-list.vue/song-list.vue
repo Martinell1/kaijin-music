@@ -19,6 +19,7 @@
 </template>
 
 <script setup>
+// eslint-disable-next-line no-undef
 defineProps({
   songList: {
     type: Array,
@@ -27,6 +28,7 @@ defineProps({
     }
   }
 })
+// eslint-disable-next-line no-undef
 const emit = defineEmits(['select'])
 const selectItem = async (song, index) => {
   emit('select', song, index)

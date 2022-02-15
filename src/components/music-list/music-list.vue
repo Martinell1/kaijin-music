@@ -16,7 +16,7 @@
     <div class="music__bg__image" :style="bgImageStyle" ref="bgImageRef">
       <div class="music__bg__filter" :style="filterStyle"></div>
     </div>
-    <scroll
+    <Scroll
       v-loading="loading"
       v-no-result="noResult"
       :probeType="3"
@@ -25,7 +25,7 @@
       :style="scrollStyle"
     >
       <SongList :songList="songs" @select="selectItem"></SongList>
-    </scroll>
+    </Scroll>
   </div>
 </template>
 
@@ -33,8 +33,10 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import scroll from '../base/scroll/scroll.vue'
-import SongList from '../base/song-list.vue/song-list.vue'
+import store from '../../store'
+import Scroll from '@/components/wrap-scroll/wrap-scroll'
+import SongList from '../song-list.vue/song-list.vue'
+// eslint-disable-next-line no-undef
 const props = defineProps({
   songs: {
     type: Array,
@@ -96,9 +98,12 @@ const useStyle = () => {
     }
   })
 
+  const playlist = computed(() => store.state.playlist)
   const scrollStyle = computed(() => {
+    const bottom = playlist.value.length ? '60px' : 0
     return {
-      top: `${bgImageHeight.value}px`
+      top: `${bgImageHeight.value}px`,
+      bottom
     }
   })
 

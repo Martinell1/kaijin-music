@@ -58,9 +58,6 @@ export default function usePlay ({ playLyric, onReady, currentTime }) {
       const index = ShiftHandle()
 
       store.commit('setCurrentIndex', index)
-      if (!playing.value) {
-        store.commit('setPlayState', true)
-      }
     }
   }
 

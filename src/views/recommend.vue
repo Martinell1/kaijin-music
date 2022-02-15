@@ -30,7 +30,7 @@
 import { ref, computed } from 'vue'
 import { getBanners, getPlayLists } from '@/api/api'
 import Slider from '@/components/base/slider/slider.vue'
-import Scroll from '@/components/base/scroll/scroll.vue'
+import Scroll from '@/components/wrap-scroll/wrap-scroll'
 const useRecommendEffect = () => {
   const sliders = ref([])
   const getBannersData = async () => {
