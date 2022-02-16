@@ -54,7 +54,7 @@ const getLyric = async (song) => {
 }
 
 const getToplist = async () => {
-  return axios.get('/toplist')
+  return axios.get('/toplist/detail')
 }
 
 export {

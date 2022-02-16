@@ -7,11 +7,14 @@
         :key="song.id"
         @click="() => selectItem(song, index)"
       >
-        <div class="song__name">{{ song.name }}</div>
-        <div class="song__desc">
-          {{ song.ar[0].name }}
-          <span>-</span>
-          {{ song.al.name }}
+        <div v-if="rank" class="song__rank" :class="rankClass(index)">{{ handleRank(index) }}</div>
+        <div class="song__text">
+          <div class="song__name">{{ song.name }}</div>
+          <div class="song__desc">
+            {{ song.ar[0].name }}
+            <span>-</span>
+            {{ song.al.name }}
+          </div>
         </div>
       </li>
     </ul>
@@ -26,6 +29,10 @@ defineProps({
     default () {
       return []
     }
+  },
+  rank: {
+    type: Boolean,
+    default: false
   }
 })
 // eslint-disable-next-line no-undef
@@ -39,6 +46,18 @@ const selectItem = async (song, index) => {
   //   alert(result.message)
   // }
 }
+
+const rankClass = (index) => {
+  if (index <= 2) {
+    return `iconfont icon-${index}`
+  }
+}
+
+const handleRank = (rank) => {
+  if (rank > 2) {
+    return ++rank
+  }
+}
 </script>
 <style lang='scss' scoped>
 .song {
@@ -49,6 +68,32 @@ const selectItem = async (song, index) => {
 
   &__item {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__rank {
+    margin-right: 20px;
+    color: $color-theme;
+
+    &.iconfont {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      background-size: 20px 20px;
+    }
+
+    &.icon-0 {
+      @include bg-image("first");
+    }
+    &.icon-1 {
+      @include bg-image("second");
+    }
+
+    &.icon-2 {
+      @include bg-image("third");
+    }
   }
 
   &__desc {

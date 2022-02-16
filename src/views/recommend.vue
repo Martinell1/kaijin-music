@@ -28,7 +28,11 @@
         </div>
       </div>
     </Scroll>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <transition appear name="slide">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
   </div>
 </template>
 

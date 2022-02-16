@@ -24,7 +24,7 @@
       class="music__songs"
       :style="scrollStyle"
     >
-      <SongList :songList="songs" @select="selectItem"></SongList>
+      <SongList :songList="songs" @select="selectItem" :rank="rank"></SongList>
     </Scroll>
   </div>
 </template>
@@ -57,6 +57,10 @@ const props = defineProps({
     default: true
   },
   noResult: {
+    type: Boolean,
+    default: false
+  },
+  rank: {
     type: Boolean,
     default: false
   }

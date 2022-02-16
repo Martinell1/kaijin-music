@@ -31,7 +31,14 @@ const routes = [
   {
     path: '/top-list',
     name: 'TopList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/top-list.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/top-list.vue'),
+    children: [
+      {
+        path: ':id',
+        name: 'TopListDetail',
+        component: () => import(/* webpackChunkName: "about" */ '../views/toplist-detail.vue')
+      }
+    ]
   },
   {
     path: '/search',
