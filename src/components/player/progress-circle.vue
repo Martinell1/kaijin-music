@@ -25,7 +25,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-
+// eslint-disable-next-line no-undef
 const props = defineProps({
   radius: {
     type: Number,

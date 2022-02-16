@@ -10,19 +10,25 @@
         <div class="recommend__list">
           <h1 class="list__title" v-show="!loading">热门歌单推荐</h1>
           <ul>
-            <li v-for="item in playLists" :key="item.id" class="recommend__item">
-              <div class="recommend__icon">
-                <img width="60" height="60" v-lazy="item.coverImgUrl" />
-              </div>
-              <div class="recommend__text">
-                <h2 class="recommend__name">{{ item.creator.nickname }}</h2>
-                <p class="recommend__title">{{ item.name }}</p>
-              </div>
+            <li v-for="item in playLists" :key="item.id">
+              <router-link
+                :to="{ name: 'AlbumDetail', params: { id: item.id } }"
+                class="recommend__item"
+              >
+                <div class="recommend__icon">
+                  <img width="60" height="60" v-lazy="item.coverImgUrl" />
+                </div>
+                <div class="recommend__text">
+                  <h2 class="recommend__name">{{ item.creator.nickname }}</h2>
+                  <p class="recommend__title">{{ item.name }}</p>
+                </div>
+              </router-link>
             </li>
           </ul>
         </div>
       </div>
     </Scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -31,6 +37,8 @@ import { ref, computed } from 'vue'
 import { getBanners, getPlayLists } from '@/api/api'
 import Slider from '@/components/base/slider/slider.vue'
 import Scroll from '@/components/wrap-scroll/wrap-scroll'
+
+// 轮播图信息
 const useRecommendEffect = () => {
   const sliders = ref([])
   const getBannersData = async () => {
@@ -42,6 +50,7 @@ const useRecommendEffect = () => {
 const { sliders, getBannersData } = useRecommendEffect()
 getBannersData()
 
+// 歌单信息
 const usePlayListsEffect = () => {
   const playLists = ref([])
   const getPlayListsData = async () => {
@@ -54,6 +63,7 @@ const usePlayListsEffect = () => {
 const { playLists, getPlayListsData } = usePlayListsEffect()
 getPlayListsData()
 
+// 加载
 const useLoadingEffect = () => {
   const loading = computed(() => {
     return !playLists.value.length && !sliders.value.length

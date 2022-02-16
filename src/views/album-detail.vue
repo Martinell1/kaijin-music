@@ -1,5 +1,5 @@
 <template>
-  <div class="singer__detail">
+  <div class="album__detail">
     <MusicList
       :loading="loading"
       :noResult="noResult"
@@ -12,16 +12,15 @@
 
 <script setup>
 import useDetail from '@/components/detail/use-detail.js'
-import { getSingerDetail, getSingerSongs } from '../api/api'
+import { getAlbumDetail, getAlbumSongs } from '../api/api'
 import MusicList from '../components/music-list/music-list.vue'
 
-const { data, getDetailDate, getSongsDate, loading, noResult } = useDetail(getSingerDetail, getSingerSongs)
+const { data, getDetailDate, getSongsDate, loading, noResult } = useDetail(getAlbumDetail, getAlbumSongs)
 getDetailDate()
 getSongsDate()
-
 </script>
 <style lang='scss' scoped>
-.singer__detail {
+.album__detail {
   position: fixed;
   z-index: 10;
   top: 0;

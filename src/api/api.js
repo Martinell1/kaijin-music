@@ -9,6 +9,14 @@ const getPlayLists = async (count = 10) => {
   return await axios.get('/top/playlist/highquality?limit=' + count)
 }
 
+const getAlbumDetail = async (id) => {
+  return await axios.get('/playlist/detail?id=' + id)
+}
+
+const getAlbumSongs = async (id) => {
+  return await axios.get('/playlist/track/all?id=' + id)
+}
+
 const getSingers = async (page = 0, type = 1, area = -1, initial = -1) => {
   return await axios.get('/artist/list?type=' + type + '&area=' + area + '&offset=' + page * 30 + '&initial=' + initial)
 }
@@ -45,13 +53,20 @@ const getLyric = async (song) => {
   return await axios.get('/lyric?id=' + song.id)
 }
 
+const getToplist = async () => {
+  return axios.get('/toplist')
+}
+
 export {
   getBanners,
   getPlayLists,
+  getAlbumDetail,
+  getAlbumSongs,
   getSingers,
   getSingerDetail,
   getSingerSongs,
   getMusicUrl,
   checkMusicAble,
-  getLyric
+  getLyric,
+  getToplist
 }
