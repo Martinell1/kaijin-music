@@ -10,6 +10,7 @@
 <script setup>
 import { ref } from 'vue'
 
+// eslint-disable-next-line no-undef
 defineProps({
   title: {
     type: String,
@@ -22,6 +23,7 @@ const setTitle = (titleValue) => {
   title.value = titleValue
 }
 
+// eslint-disable-next-line no-undef
 defineExpose({
   setTitle
 })

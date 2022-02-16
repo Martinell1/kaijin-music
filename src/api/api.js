@@ -57,6 +57,14 @@ const getToplist = async () => {
   return axios.get('/toplist/detail')
 }
 
+const getSearchHotKeys = async () => {
+  return axios.get('/search/hot/detail')
+}
+
+const getSearchSuggest = async (keywords) => {
+  return axios.get('/search/suggest?keywords=' + keywords + '&type=mobile')
+}
+
 export {
   getBanners,
   getPlayLists,
@@ -68,5 +76,7 @@ export {
   getMusicUrl,
   checkMusicAble,
   getLyric,
-  getToplist
+  getToplist,
+  getSearchHotKeys,
+  getSearchSuggest
 }
