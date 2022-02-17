@@ -16,12 +16,18 @@ const props = defineProps({
   probeType: {
     type: Number,
     default: 0
+  },
+  pullUpLoadFn: {
+    type: Function,
+    default () {
+
+    }
   }
 })
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['scroll'])
 const rootRef = ref(null)
-const { scroll } = useScroll(rootRef, props, emit)
+const { scroll } = useScroll(rootRef, props, emit, props.pullUpLoadFn)
 // eslint-disable-next-line no-undef
 defineExpose({
   scroll

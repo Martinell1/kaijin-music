@@ -7,30 +7,28 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { watch, inject } from 'vue'
 import { debounce } from 'throttle-debounce'
+import useSearchHistory from './use-searchHistory'
 // eslint-disable-next-line no-undef
-const props = defineProps({
-  modelValue: String,
+defineProps({
   placeHolder: {
     type: String,
     default: '搜索歌曲、歌手'
   }
 })
-const query = ref(props.modelValue)
-
-watch(() => props.modelValue, debounce(300, (newProps) => {
-  query.value = newProps
+const query = inject('query')
+const suggests = inject('suggests')
+const { saveSearch } = useSearchHistory()
+watch(query, debounce(300, () => {
+  if (query.value) {
+    saveSearch(query.value)
+  }
 }))
-
-// eslint-disable-next-line no-undef
-const emits = defineEmits(['update:modelValue'])
-watch(query, (newQuery) => {
-  emits('update:modelValue', newQuery)
-})
 
 const clearHandle = () => {
   query.value = ''
+  suggests.value = []
 }
 </script>
 <style lang='scss' scoped>

@@ -22,6 +22,7 @@ export default function useLyric ({ onReady, currentTime }) {
     currentLyric.value = null
     currentLineNum.value = 0
     const { data: result } = await getLyric(newSong)
+    console.log(result)
     const lyric = result.lrc.lyric
     store.commit('addSongLyric', {
       song: newSong,

@@ -1,7 +1,7 @@
 <template>
   <div class="singers" v-loading="!singers.length">
     <SingerFilter />
-    <SingerList :singers="singers"></SingerList>
+    <SingerList :singers="singers" :pullUpLoadFn="getSingersData"></SingerList>
     <router-view v-slot="{ Component }">
       <transition appear name="slide">
         <component :is="Component"></component>
@@ -44,7 +44,6 @@ const useSingersEffect = () => {
 }
 const { singers, params, changeParams, getSingersData } = useSingersEffect()
 getSingersData()
-provide('getSingersData', getSingersData)
 provide('singersParams', params)
 provide('changeParams', changeParams)
 </script>

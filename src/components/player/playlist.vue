@@ -35,6 +35,12 @@
               </li>
             </transition-group>
           </Scroll>
+          <div class="playlist__add">
+            <div class="playlist__add__btn" @click="showAddSongHandle">
+              <i class="iconfont icon-add"></i>
+              <span class="playlist__add__text">添加歌曲列表</span>
+            </div>
+          </div>
           <div class="playlist__footer" @click.stop="hide">
             <span>关闭</span>
           </div>
@@ -45,6 +51,7 @@
           ref="confirmRef"
           @confirm="confirmClear"
         ></Confirm>
+        <AddSong ref="addSongRef"></AddSong>
       </div>
     </transition>
   </teleport>
@@ -57,6 +64,7 @@ import { useStore } from 'vuex'
 import useMode from './use-mode'
 import useFavorite from './use-favorite'
 import Confirm from '../base/comfirm/confirm.vue'
+import AddSong from '../add-song/add-song.vue'
 const visible = ref(false)
 const store = useStore()
 const playlist = computed(() => store.state.playlist)
@@ -140,6 +148,10 @@ watch(currentSong, async (newSong) => {
   await nextTick()
   scrollToCurrent()
 })
+const addSongRef = ref(null)
+const showAddSongHandle = () => {
+  addSongRef.value.show()
+}
 
 // eslint-disable-next-line no-undef
 defineExpose({
@@ -239,6 +251,18 @@ defineExpose({
     @include extend-click();
     font-size: $font-size-small;
     color: $color-theme;
+  }
+
+  &__add {
+    text-align: center;
+    border-top: 1px solid $color-background;
+    height: 49px;
+    line-height: 50px;
+
+    .icon-add {
+      font-size: $font-size-small;
+      margin-right: 5px;
+    }
   }
 
   &__footer {

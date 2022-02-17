@@ -139,6 +139,7 @@ const { cdWrapperRef, enter, afterEnter, leave, afterLeave } = useAnimation()
 
 // 播放模式
 const { modeIcon, modeChangeHandle } = useMode()
+
 // 收藏
 const { getFavoriteIcon, toggleFavorite } = useFavorite()
 
@@ -211,7 +212,6 @@ watch(currentSong, async (newSong) => {
   const url = await getMusicData(newSong.id)
 
   const audioEl = audioRef.value
-  console.log('url', url)
   audioEl.src = url
   audioEl.play()
   store.commit('setPlayState', true)

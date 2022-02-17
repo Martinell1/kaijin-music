@@ -147,7 +147,7 @@ const backHandle = () => {
 
 const usePlayEffect = () => {
   const store = useStore()
-  const selectItem = (song, index) => {
+  const selectItem = ({ song, index }) => {
     store.dispatch('selectPlay', {
       list: props.songs,
       index
