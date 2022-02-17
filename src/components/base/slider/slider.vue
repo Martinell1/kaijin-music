@@ -21,6 +21,7 @@
 <script setup>
 import { ref } from 'vue'
 import useSlider from './use-slider'
+// eslint-disable-next-line no-undef
 defineProps({
   sliders: {
     type: Array,

@@ -1,5 +1,5 @@
 <template>
-  <Scroll :pullUpLoad="true" class="singer__list">
+  <Scroll :pullUpLoad="true" :pullUpLoadFn="pullUpLoadFn" class="singer__list">
     <ul>
       <li v-for="singer in singers" :key="singer.id">
         <router-link :to="{ name: 'SingerDetail', params: { id: singer.id } }" class="singer__item">
@@ -20,6 +20,12 @@ defineProps({
     type: Array,
     default () {
       return []
+    }
+  },
+  pullUpLoadFn: {
+    type: Function,
+    default () {
+
     }
   }
 })

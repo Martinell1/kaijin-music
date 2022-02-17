@@ -54,15 +54,15 @@ const getLyric = async (song) => {
 }
 
 const getToplist = async () => {
-  return axios.get('/toplist/detail')
+  return await axios.get('/toplist/detail')
 }
 
 const getSearchHotKeys = async () => {
-  return axios.get('/search/hot/detail')
+  return await axios.get('/search/hot/detail')
 }
 
-const getSearchSuggest = async (keywords) => {
-  return axios.get('/search/suggest?keywords=' + keywords + '&type=mobile')
+const doSearch = async (keywords, page) => {
+  return await axios.get('/cloudsearch?keywords=' + keywords + '&offset=' + page * 30)
 }
 
 export {
@@ -78,5 +78,5 @@ export {
   getLyric,
   getToplist,
   getSearchHotKeys,
-  getSearchSuggest
+  doSearch
 }

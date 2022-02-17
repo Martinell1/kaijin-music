@@ -38,7 +38,7 @@ defineProps({
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['select'])
 const selectItem = async (song, index) => {
-  emit('select', song, index)
+  emit('select', { song, index })
   // const { data: result } = await checkMusicAble(song.id)
   // if (result.success) {
   //   emit('select', song, index)

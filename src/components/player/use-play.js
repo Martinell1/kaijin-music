@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { getMusicUrl } from '../../api/api'
 import { PLAY_MODE } from '@/assets/js/constance'
+import usePlayHistory from './use-play-history'
 
 export default function usePlay ({ playLyric, onReady, currentTime }) {
   const store = useStore()
@@ -28,12 +29,16 @@ export default function usePlay ({ playLyric, onReady, currentTime }) {
     store.commit('setPlayState', false)
   }
 
+  // 播放历史
+  const { savePlay } = usePlayHistory()
+
   const ready = () => {
     if (onReady.value) {
       return
     }
     onReady.value = true
     playLyric()
+    savePlay(currentSong.value)
   }
 
   const error = () => {
