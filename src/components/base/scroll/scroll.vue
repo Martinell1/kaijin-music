@@ -7,6 +7,7 @@
 <script setup>
 import { ref } from 'vue'
 import useScroll from './use-scroll'
+// eslint-disable-next-line no-undef
 const props = defineProps({
   pullUpLoad: {
     type: Boolean,
@@ -17,9 +18,11 @@ const props = defineProps({
     default: 0
   }
 })
+// eslint-disable-next-line no-undef
 const emit = defineEmits(['scroll'])
 const rootRef = ref(null)
 const { scroll } = useScroll(rootRef, props, emit)
+// eslint-disable-next-line no-undef
 defineExpose({
   scroll
 })
