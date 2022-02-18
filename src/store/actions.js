@@ -10,7 +10,8 @@ export function selectPlay ({ commit, state }, { list, index }) {
   commit('setCurrentIndex', index)
 }
 
-export function randomPlay ({ commit }, { list }) {
+export function randomPlay ({ commit }, list) {
+  console.log(list)
   commit('setPlayMode', PLAY_MODE.random)
   commit('setSequenceList', list)
   commit('setPlayState', true)

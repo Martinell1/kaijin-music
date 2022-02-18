@@ -2,7 +2,9 @@
   <div class="header">
     <img width="30" height="30" src="../../assets/images/icon.png" />
     <h1 class="header__title">Kaijin-Music</h1>
-    <i class="iconfont icon-user"></i>
+    <router-link :to="{ name: 'User' }" class="header__icon">
+      <i class="iconfont icon-user"></i>
+    </router-link>
   </div>
 </template>
 
@@ -20,6 +22,10 @@
 
   img {
     border-radius: 50%;
+  }
+
+  &__icon {
+    color: $color-theme;
   }
 
   .iconfont {

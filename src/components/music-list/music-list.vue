@@ -155,9 +155,7 @@ const usePlayEffect = () => {
   }
 
   const randomPlay = () => {
-    store.dispatch('randomPlay', {
-      list: props.songs
-    })
+    store.dispatch('randomPlay', props.songs)
   }
 
   return { selectItem, randomPlay }
