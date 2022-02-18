@@ -29,6 +29,12 @@
         <div class="add-song__search__result" v-show="query">
           <Suggest></Suggest>
         </div>
+        <Message ref="messageRef" :delay="2000">
+          <div class="message-title">
+            <i class="iconfont icon-ok"></i>
+            <span class="message-text">一首歌曲已经被添加</span>
+          </div>
+        </Message>
       </div>
     </transition>
   </teleport>
@@ -43,6 +49,7 @@ import Scroll from '../base/scroll/scroll.vue'
 import SongList from '../song-list.vue/song-list.vue'
 import SearchList from '../search/search-list.vue'
 import { useStore } from 'vuex'
+import Message from '../base/message/message.vue'
 const visible = ref(false)
 const query = ref('')
 provide('query', query)
@@ -65,6 +72,7 @@ const hideHandle = () => {
   hide()
 }
 
+const messageRef = ref(null)
 const type = ref(0)
 provide('type', type)
 const store = useStore()
@@ -72,6 +80,7 @@ const searchHistory = computed(() => store.state.searchHistory)
 const playHistory = computed(() => store.state.playHistory)
 const addSong = ({ song, index }) => {
   store.dispatch('addSong', song)
+  messageRef.value.show()
 }
 
 // eslint-disable-next-line no-undef
@@ -130,6 +139,17 @@ defineExpose({
     &__search {
       margin: 0 20px;
     }
+  }
+}
+
+.message {
+  &-title {
+    text-align: center;
+    height: 44px;
+    line-height: 44px;
+  }
+  &-text {
+    margin-left: 10px;
   }
 }
 </style>
