@@ -1,5 +1,7 @@
 <template>
-  <div class="header"></div>
+  <div class="header">
+    <div></div>
+  </div>
 </template>
 
 <script setup>
