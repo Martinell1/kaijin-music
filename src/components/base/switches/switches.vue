@@ -9,12 +9,11 @@
     >
       <span>{{ item }}</span>
     </li>
-    <div class="switches__bar--active" :style="barStyle"></div>
   </ul>
 </template>
 
 <script setup>
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
 // eslint-disable-next-line no-undef
 defineProps({
   items: {
@@ -25,12 +24,6 @@ defineProps({
   }
 })
 const type = inject('type')
-const barStyle = computed(() => {
-  const x = 120 * type
-  return {
-    transform: `translate3d(${x}px,0,0)`
-  }
-})
 
 const switchItem = (index) => {
   type.value = index
@@ -56,18 +49,6 @@ const switchItem = (index) => {
 
     &.active {
       color: $color-text;
-    }
-  }
-
-  &__bar {
-    &--active {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 120px;
-      height: 30px;
-      transition: transform 0.3s;
-      border-radius: 5px;
       background: $color-highlight-background;
     }
   }
