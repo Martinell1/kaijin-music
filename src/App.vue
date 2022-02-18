@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <Tab />
   <router-view :style="viewStyle" />
   <Player></Player>
@@ -9,6 +10,7 @@ import Tab from './components/tab/tab.vue'
 import Player from './components/player/player.vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import Header from './components/header/header.vue'
 const store = useStore()
 const playlist = computed(() => store.state.playlist)
 const viewStyle = computed(() => {

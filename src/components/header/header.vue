@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <div></div>
+    <img width="30" height="30" src="../../assets/images/icon.png" />
+    <h1 class="header__title">Kaijin-Music</h1>
+    <i class="iconfont icon-user"></i>
   </div>
 </template>
 
@@ -8,5 +10,24 @@
 </script>
 <style lang='scss' scoped>
 .header {
+  position: relative;
+  display: flex;
+  height: 40px;
+  line-height: 40px;
+  color: $color-theme;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    border-radius: 50%;
+  }
+
+  .iconfont {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: $font-size-large-x;
+    margin-right: 10px;
+  }
 }
 </style>
