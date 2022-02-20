@@ -6,8 +6,14 @@ const relativeClass = 'g-relative'
 export default function createDirectiveComponent (Comp, name) {
   return {
     mounted (el, binding) {
-      const app = createApp(Comp)
+      const app = createApp(Comp)// 根据模板创建app
+
+      // 将app挂载在div上
+      // instance 可获取实例上暴露的方法 setup语法中需要defineExpose
       const instance = app.mount(document.createElement('div'))
+
+      // el  该指令的挂载对象
+      // name 标识
       if (!el[name]) {
         el[name] = {}
       }
