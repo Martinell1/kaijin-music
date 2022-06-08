@@ -12,25 +12,27 @@
 
 # 项目预览
 
-推荐页
+## 推荐页
 
 ![image-20220608172617223](https://s2.loli.net/2022/06/08/276UTAaopNBLQ5m.png)
 
-歌手页
+## 歌手页
 
 ![image-20220608172744390](https://s2.loli.net/2022/06/08/NWcxi4qF3Iwvosf.png)
 
-排行榜
+## 排行榜
 
 ![image-20220608172812272](https://s2.loli.net/2022/06/08/PjdSwtR2gYEW1BV.png)
 
 ![image-20220608172846053](https://s2.loli.net/2022/06/08/PK6D3gQIWSj2hZq.png)
 
-搜索页
+## 搜索页
 
-![image-20220608172933931](C:\Users\Yinshi\AppData\Roaming\Typora\typora-user-images\image-20220608172933931.png)
+![image-20220608173715988](https://s2.loli.net/2022/06/08/ZFxD7Lk5wMtfHbU.png)
 
-播放器
+![image-20220608173744598](https://s2.loli.net/2022/06/08/1X2ML8YOqovel4n.png)
+
+## 播放器
 
 ![image-20220608173140766](https://s2.loli.net/2022/06/08/knL61HxCrOvyuaJ.png)
 
