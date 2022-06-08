@@ -1,24 +1,39 @@
-# kaijin-music
+# 项目说明
 
-## Project setup
-```
-npm install
-```
+由于版权限制，多数歌曲无法播放，建议使用林俊杰歌曲试听。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+服务端采用[Martinell1/NeteaseCloudMusicApi: 网易云音乐 Node.js API service (github.com)](https://github.com/Martinell1/NeteaseCloudMusicApi)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+可能随时发生变化。
 
-### Lints and fixes files
-```
-npm run lint
-```
+# 项目地址
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[kaijin-music (kaijinx.top)](http://music.kaijinx.top/#/recommend)
+
+# 项目预览
+
+推荐页
+
+![image-20220608172617223](https://s2.loli.net/2022/06/08/276UTAaopNBLQ5m.png)
+
+歌手页
+
+![image-20220608172744390](https://s2.loli.net/2022/06/08/NWcxi4qF3Iwvosf.png)
+
+排行榜
+
+![image-20220608172812272](https://s2.loli.net/2022/06/08/PjdSwtR2gYEW1BV.png)
+
+![image-20220608172846053](https://s2.loli.net/2022/06/08/PK6D3gQIWSj2hZq.png)
+
+搜索页
+
+![image-20220608172933931](C:\Users\Yinshi\AppData\Roaming\Typora\typora-user-images\image-20220608172933931.png)
+
+播放器
+
+![image-20220608173140766](https://s2.loli.net/2022/06/08/knL61HxCrOvyuaJ.png)
+
+![image-20220608173213542](https://s2.loli.net/2022/06/08/fHcI1C7lsy9tLaY.png)
+
+![image-20220608173338491](https://s2.loli.net/2022/06/08/7ViMjQNhrRyHTfL.png)
